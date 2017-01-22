@@ -448,15 +448,16 @@ void runtime_app::main( const ci::app::RendererRef &defaultRenderer, const char 
 	interpreter->AddIncludePath( path.parent_path().string() );
 	interpreter->AddIncludePath( ( path.parent_path().parent_path() / "include" ).string() );
 	interpreter->AddIncludePath( ( blockPath / "include" ).string() );
+	interpreter->AddIncludePath( ( blockPath / "lib/include" ).string() );
 	interpreter->AddIncludePath( ( blockPath / "../Watchdog/include" ).string() );
 	
 	// add cinder
-	interpreter->declare( "#define GLM_COMPILER 0" );
+	interpreter->declare( "#define OBJC_SILENCE_GC_DEPRECATIONS 1" );
 	interpreter->AddIncludePath( blockPath.parent_path().parent_path().string() + "/include/" );
 #if defined(NDEBUG) || defined(_NDEBUG) || defined(RELEASE) || defined(MASTER) || defined(GOLD)
-	interpreter->loadFile( blockPath.parent_path().parent_path().string() + "/lib/libcinder.dylib" );
+	interpreter->loadFile( blockPath.parent_path().parent_path().string() + "/lib/macosx/Release/libcinder_d.dylib" );
 #else
-	interpreter->loadFile( blockPath.parent_path().parent_path().string() + "/lib/libcinder_d.dylib" );
+	interpreter->loadFile( blockPath.parent_path().parent_path().string() + "/lib/macosx/Debug/libcinder_d.dylib" );
 #endif
 	
 	// add other interpreter options

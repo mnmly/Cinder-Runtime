@@ -16,13 +16,13 @@
 	<header>include/runtime_app.h</header>
 
 	<platform config="debug">
-  		<dynamicLibrary cinder="true">lib/libcinder_d.dylib</dynamicLibrary>
+  		<dynamicLibrary cinder="true">lib/macosx/Debug/libcinder_d.dylib</dynamicLibrary>
 	</platform>
 	<platform config="release">
-  		<dynamicLibrary cinder="true">lib/libcinder.dylib</dynamicLibrary>
+  		<dynamicLibrary cinder="true">lib/macosx/Release/libcinder.dylib</dynamicLibrary>
 	</platform>
 
-	<staticLibrary>lib/lib/libCling.a</staticLibrary>
+	<dynamicLibrary>lib/lib/libCling.dylib</dynamicLibrary>
 	<staticLibrary absolute="true">-lncurses</staticLibrary>
 
 </block>
