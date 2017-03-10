@@ -471,8 +471,13 @@ void runtime_app::main( const ci::app::RendererRef &defaultRenderer, const char 
 	std::ifstream infile( path.c_str() );
 	std::string line;
 	std::vector<std::string> includes;
+    bool macroOpen = false;
+    
 	while( std::getline( infile, line ) ) {
+        if ( line.find( "#if" ) != std::string::npos || line.find( "#else" ) != std::string::npos ) { macroOpen = true; }
+        if ( line.find( "#endif" ) != std::string::npos ) macroOpen = false;
 		if( line.find( "CINDER_RUNTIME_APP" ) != std::string::npos ) {
+            if ( macroOpen ) originalCode += "#endif";
 			break;
 		}
 		//if( line.find( "#include \"runtime_app.h\"" ) == std::string::npos ) {
@@ -528,8 +533,12 @@ void runtime_app::main( const ci::app::RendererRef &defaultRenderer, const char 
 		std::ifstream infile( path.c_str() );
 		std::string line;
 		std::vector<std::string> includes;
+        bool macroOpen = false;
 		while( std::getline( infile, line ) ) {
+            if ( line.find( "#if" ) != std::string::npos || line.find( "#else" ) != std::string::npos ) { macroOpen = true; }
+            if ( line.find( "#endif" ) != std::string::npos ) macroOpen = false;
 			if( line.find( "CINDER_RUNTIME_APP" ) != std::string::npos ) {
+                if ( macroOpen ) code += "#endif";
 				break;
 			}
 			if( line.find( "#include" ) == std::string::npos ) {
